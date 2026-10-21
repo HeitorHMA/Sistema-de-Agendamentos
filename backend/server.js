@@ -12,12 +12,12 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
-app.get("/testar-conexão", async (req, res) => {
+app.get("/testar-conexao", async (req, res) => {
   try {
     const resultado = await pool.query("SELECT NOW()");
     res.json({
-      mensagem: 'Conexão bem-sucedida"',
-      horario: resultado.row[0].now,
+      mensagem: "Conexão bem-sucedida",
+      horario: resultado.rows[0].now,
     });
   } catch (erro) {
     console.error("Erro ao conectar ao banco", erro);
