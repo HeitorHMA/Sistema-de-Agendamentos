@@ -12,11 +12,19 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
-const port = 3000;
-
-app.get("/", (req, res) => {
-  res.send("hello world ");
+app.get("/testar-conexão", async (req, res) => {
+  try {
+    const resultado = await pool.query("SELECT NOW()");
+    res.json({
+      mensagem: 'Conexão bem-sucedida"',
+      horario: resultado.row[0].now,
+    });
+  } catch (erro) {
+    console.error("Erro ao conectar ao banco", erro);
+    res.status(500).json({ erro: "Erro ao conectar ao banco de dados" });
+  }
 });
-app.listen(port, () => {
-  console.log("Testing .Listen()");
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor na porta ${PORT}`);
 });
