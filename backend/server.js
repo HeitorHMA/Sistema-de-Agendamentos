@@ -12,7 +12,7 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
-app.get("/testar-conexao", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const resultado = await pool.query("SELECT NOW()");
     res.json({
