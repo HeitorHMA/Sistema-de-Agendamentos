@@ -24,6 +24,18 @@ app.get("/testar-conexao", async (req, res) => {
     res.status(500).json({ erro: "Erro ao conectar ao banco de dados" });
   }
 });
+
+app.get("/services", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM services");
+    res.json(result.rows);
+  } catch (error) {
+    console.log("error while getting information", error);
+    res
+      .status(500)
+      .json({ error: "error while getting information of services" });
+  }
+});
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servidor na porta ${PORT}`);
